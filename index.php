@@ -54,10 +54,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 include("connections.php");
 
     if($name && $address && $email){
-     
-        echo $name."<br>";
-        echo $address."<br>";
-        echo $email."<br>";
+        $query = mysqli_query($connections, "INSERT INTO mytbl(name, address, email) VALUES('$name', '$address', '$email')");
+
+        echo "<script language='javascript'>
+        alert('New Record has been inserted!');
+        window.location.href='index.php';
+        </script>";
+    }
+
+    $view_query = mysqli_query($connections,"SELECT * FROM mytbl");
+
+    while($row = mysqli_fetch_array($view_query)){
+        $db_name = $row['name'];
+        $db_address = $row['address'];
+        $db_email = $row['email'];
+
+        echo $db_name."<br>";
     }
 
 ?>
