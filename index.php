@@ -69,10 +69,14 @@ include("connections.php");
             <td>Name</td>
             <td>Address</td>
             <td>Email</td>
+
+            <td>Options</td>
         </tr>";
 
 
     while($row = mysqli_fetch_assoc($view_query)){
+        $user_id = $row["id"];
+
         $db_name = $row['name'];
         $db_address = $row['address'];
         $db_email = $row['email'];
@@ -81,6 +85,12 @@ include("connections.php");
                 <td>$db_name</td>
                 <td>$db_address</td>
                 <td>$db_email</td>
+
+                <td>
+                    <a href='edit.php?user_id=$user_id'>Update</a>
+                    &nbsp;
+                    <a href=''>Delete</a>
+                </td>
             </tr>";
     }
 
