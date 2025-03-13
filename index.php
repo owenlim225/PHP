@@ -33,7 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </style>
 
 
-<form method="POST" action="<?php htmlspecialchars("PHP_SELF"); ?>">
+<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+
 
 <input type="text" name="name" value="<?php echo $name; ?>"> <br>
 <span class="error"><?php echo $nameErr;?></span> <br>
@@ -56,15 +57,14 @@ include("connections.php");
     if($name && $address && $email){
         $query = mysqli_query($connections, "INSERT INTO mytbl(name, address, email) VALUES('$name', '$address', '$email')");
 
-        echo "<script language='javascript'>
-        alert('New Record has been inserted!');
-        window.location.href='index.php';
-        </script>";
+        echo "<script language='javascript'>alert('New Record has been inserted!');</script>";
+        echo "<script language='javascript'>window.location='index.php';</script>";
     }
 
     $view_query = mysqli_query($connections,"SELECT * FROM mytbl");
 
-    echo "<table border='1'width='50%>";
+    echo "<table border='1' width='50%'>";
+
     echo "<tr>
             <td>Name</td>
             <td>Address</td>
@@ -72,7 +72,7 @@ include("connections.php");
         </tr>";
 
 
-    while($row = mysqli_fetch_array($view_query)){
+    while($row = mysqli_fetch_assoc($view_query)){
         $db_name = $row['name'];
         $db_address = $row['address'];
         $db_email = $row['email'];
